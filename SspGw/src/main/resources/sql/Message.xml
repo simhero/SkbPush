@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Message">
+
+	<typeAlias alias="MessageReqVO" type="com.skt.ssp.gw.vo.MessageReqVO" />
+	<typeAlias alias="MessageVO" type="com.skt.ssp.gw.vo.MessageVO" />
+	<typeAlias alias="HashMap" type="java.util.HashMap" />
+	
+	<parameterMap id="addMessageReqProcessParameterMap" class="MessageReqVO">
+		<parameter property="messageReqId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="senderId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="senderShortcode" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="boxType" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="inflowPath" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="header" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="message" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="signature" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="regServer" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="sendYn" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="reserveYn" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="reserveSendDate" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="reserveMessageStatus" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="registerId" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+	</parameterMap>
+
+	<parameterMap id="addMessageProcessParameterMap" class="MessageVO">
+		<parameter property="messageId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="messageReqId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="receiverMsisdn" jdbcType="VARCHAR" javaType="string" />
+        <parameter property="messageOrder" jdbcType="NUMERIC" javaType="int"  nullValue="-9999999" />
+		<parameter property="winMessageId" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="sendSequenceNo" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="sendDate" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="sendCode" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="respDate" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="respCodeIn" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="respCode" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="receiptDate" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="receiptCodeIn" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="receiptCode" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="message" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+		<parameter property="dispatchServer" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="registerId" jdbcType="VARCHAR" javaType="string"  nullValue="NO_ENTRY" />
+	</parameterMap>
+
+	<parameterMap id="updateSmsSubmitSmReqProcessParameterMap" class="MessageVO">
+		<parameter property="sendDate" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="sendCode" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="messageId" jdbcType="VARCHAR" javaType="string" />
+	</parameterMap>
+
+	<parameterMap id="updateSmsSubmitSmResProcessParameterMap" class="MessageVO">
+        <parameter property="respDate" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="respCode" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="respCodeIn" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="messageId" jdbcType="VARCHAR" javaType="string" />
+	</parameterMap>
+
+	<parameterMap id="updateSmsDeliverSmReqProcessParameterMap" class="MessageVO">
+        <parameter property="receiptDate" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="receiptCode" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="receiptCodeIn" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="messageId" jdbcType="VARCHAR" javaType="string" />
+	</parameterMap>
+
+	<insert id="addMessageReqProcess" parameterMap="addMessageReqProcessParameterMap">
+		INSERT INTO TB_CO_MESSAGE_REQ (MESSAGE_REQ_ID, SENDER_ID, SENDER_SHORTCODE, BOX_TYPE, INFLOW_PATH, HEADER, MESSAGE, SIGNATURE, REG_SERVER, SEND_YN, RESERVE_YN, RESERVE_SEND_DATE, RESERVE_MESSAGE_STATUS, REGISTER_ID, REGISTER_DATE)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)
+	</insert>
+		
+	<insert id="addMessageProcess" parameterMap="addMessageProcessParameterMap">
+		INSERT INTO TB_CO_MESSAGE (MESSAGE_ID, MESSAGE_REQ_ID, RECEIVER_MSISDN, MESSAGE_ORDER, WIN_MESSAGE_ID, SEND_SEQUENCE_NO, SEND_DATE, SEND_CODE, RESP_DATE, RESP_CODE_IN, RESP_CODE, RECEIPT_DATE, RECEIPT_CODE_IN, RECEIPT_CODE, MESSAGE, DISPATCH_SERVER, REGISTER_ID, REGISTER_DATE)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE)
+	</insert>
+
+	<update id="updateSmsSubmitSmReqProcess" parameterMap="updateSmsSubmitSmReqProcessParameterMap">
+		UPDATE TB_CO_MESSAGE
+		SET SEND_DATE=?, SEND_CODE=?
+		WHERE MESSAGE_ID = ?
+	</update>
+
+	<update id="updateSmsSubmitSmResProcess" parameterMap="updateSmsSubmitSmResProcessParameterMap">
+		UPDATE TB_CO_MESSAGE
+		SET RESP_DATE=?, RESP_CODE=?, RESP_CODE_IN=?
+		WHERE MESSAGE_ID = ?
+	</update>
+
+	<update id="updateSmsDeliverSmReqProcess" parameterMap="updateSmsDeliverSmReqProcessParameterMap">
+		UPDATE TB_CO_MESSAGE
+		SET RECEIPT_DATE=?, RECEIPT_CODE=?, RECEIPT_CODE_IN=?
+		WHERE MESSAGE_ID = ?
+	</update>
+
+</sqlMap>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwApache" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwApache.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwSpring" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwSpring.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwQuartz" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwQuartz.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gw" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gw.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwCommon" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwCommon.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwDwr" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwDwr.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwCore" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwCore.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwService" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwService.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwDao" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwDao.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwParse" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwParse.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwAdapter" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwAdapter.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwSchedule" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwSchedule.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwUtil" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwUtil.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwServlet" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwServlet.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwController" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwController.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwSql" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwSql.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwIBatis" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwIBatis.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="gwSoap" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/gwSoap.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+    <appender name="gwDaemon" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/gwDaemon.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="gwAspect" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/gwAspect.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="gwAspectj" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/gwAspectj.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="gwSimul" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/gwSimul.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+	<appender name="GW_TRA" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/trace/gw.tra" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="PUSH_DAEMON_TRA" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/trace/pushDaemon.tra" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="PUSH_TRA" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/trace/push.tra" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="TEST_SIN" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/single/test.sin" />
+		<param name="DatePattern" value=".yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}|%m]%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.apache">
+		<level value="DEBUG" />
+		<appender-ref ref="gwApache" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwSpring" />
+	</logger>
+
+	<logger name="org.quartz">
+		<level value="DEBUG" />
+		<appender-ref ref="gwQuartz" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.aspect">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwAspect" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.common">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwCommon" />
+	</logger>
+
+	<logger name="org.directwebremoting.util.Logger">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwDwr" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.core">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwCore" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.service.impl">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwService" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.dao.impl">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwDao" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.scheduler">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwSchedule" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.adapter">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwAdapter" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.parse">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwParse" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.util">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwUtil" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.web.servlet">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwServlet" />
+	</logger>
+
+	<logger name="com.skt.ssp.gw.web.controller">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwController" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement">
+		<level value="DEBUG" />
+		<appender-ref ref="gwSql" />
+	</logger>
+
+	<logger name="java.sql.Connection">
+		<level value="DEBUG" />
+		<appender-ref ref="gwSql" />
+	</logger>
+
+	<logger name="java.sql.ResultSet">
+		<level value="DEBUG" />
+		<appender-ref ref="gwSql" />
+	</logger>
+
+	<logger name="com.ibatis">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwIBatis" />
+	</logger>
+
+	<logger name="com.sun.xml.messaging.saaj.soap">
+		<level value="DEBUG"/>
+		<appender-ref ref="gwSoap" />
+	</logger>
+
+    <logger name="com.skt.ssp.gw.daemon">
+        <level value="DEBUG"/>
+        <appender-ref ref="gwDaemon" />
+    </logger>
+
+    <logger name="org.aspectj">
+        <level value="DEBUG"/>
+        <appender-ref ref="gwAspectj" />
+    </logger>
+
+    <logger name="com.skt.ssp.gw.simulator">
+        <level value="DEBUG"/>
+        <appender-ref ref="gwSimul" />
+    </logger>
+
+	<category name="GW_TRA">
+		<priority value="DEBUG"/>
+		<appender-ref ref="GW_TRA" />
+	</category>
+
+	<category name="PUSH_DAEMON_TRA">
+		<priority value="DEBUG"/>
+		<appender-ref ref="PUSH_DAEMON_TRA" />
+	</category>
+
+	<category name="PUSH_TRA">
+		<priority value="DEBUG"/>
+		<appender-ref ref="PUSH_TRA" />
+	</category>
+
+	<category name="TEST_SIN">
+		<priority value="DEBUG"/>
+		<appender-ref ref="TEST_SIN" />
+	</category>
+
+</log4j:configuration>

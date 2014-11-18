@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CreateTable">
+
+	<insert id="tableCreate">
+		CREATE TABLE TB_CO_AUTH (
+			USER_ID              VARCHAR(10) NOT NULL,
+			ADMIN_ID             VARCHAR(20) NOT NULL,
+			LOGIN_ID             VARCHAR(256) NOT NULL,
+			AUTH_KEY             VARCHAR(256) NOT NULL,
+			AUTH_REQ_DATE        VARCHAR(17) NOT NULL,
+			AUTH_UPD_DATE        VARCHAR(17) NOT NULL,
+			AUTH_HEADER          VARCHAR(1024) NOT NULL,
+			AUTH_BODY            VARCHAR(1024) NOT NULL,
+			PUSH_NOTI_ID         VARCHAR(300),
+			REGISTER_DATE        TIMESTAMP,
+			REGISTER_ID          VARCHAR(20),
+			UPDATE_DATE          TIMESTAMP,
+			UPDATE_ID            VARCHAR(20),
+			CONSTRAINT  PK_CO_AUTH  PRIMARY KEY (USER_ID)
+		)
+	</insert>
+	
+	<insert id="sequenceCreate">
+		CREATE SEQUENCE USER_ID_SEQUENCE
+		AS INTEGER
+		START WITH 1000001
+		INCREMENT BY 1
+		MINVALUE 1000001
+		MAXVALUE 9999999
+		CYCLE
+	</insert>
+	
+	<typeAlias alias="AuthVO" type="com.skt.ssp.gw.vo.AuthVO"/>
+
+	<resultMap class="AuthVO" id="selectResultMap">
+		<result property="userId" column="USER_ID" javaType="string" nullValue="" />
+		<result property="adminId" column="ADMIN_ID" javaType="string" nullValue="" />
+		<result property="loginId" column="LOGIN_ID" javaType="string" nullValue="" />
+		<result property="authKey" column="AUTH_KEY" javaType="string" nullValue="" />
+		<result property="authReqDate" column="AUTH_REQ_DATE" javaType="string" nullValue="" />
+		<result property="authUpdDate" column="AUTH_UPD_DATE" javaType="string" nullValue="" />
+		<result property="authHeader" column="AUTH_HEADER" javaType="string" nullValue="" />
+		<result property="authBody" column="AUTH_BODY" javaType="string" nullValue="" />
+		<result property="pushNotiId" column="PUSH_NOTI_ID" javaType="string" nullValue="" />
+		<result property="registerDate" column="REGISTER_DATE" javaType="string" nullValue="" />
+		<result property="registerId" column="REGISTER_ID" javaType="string" nullValue="" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="string" nullValue="" />
+		<result property="updateId" column="UPDATE_ID" javaType="string" nullValue="" />
+	</resultMap>
+	
+	<select id="select" resultMap="selectResultMap">
+		SELECT USER_ID
+			 , ADMIN_ID
+			 , LOGIN_ID
+			 , AUTH_KEY
+			 , AUTH_REQ_DATE
+			 , AUTH_UPD_DATE
+			 , AUTH_HEADER
+			 , AUTH_BODY
+			 , PUSH_NOTI_ID
+			 , REGISTER_DATE
+			 , REGISTER_ID
+			 , UPDATE_DATE
+			 , UPDATE_ID
+		  FROM TB_CO_AUTH
+	</select>
+
+	<insert id="insert" parameterClass="java.util.Map">
+		INSERT INTO TB_CO_AUTH
+		 ( USER_ID
+		 , ADMIN_ID
+		 , LOGIN_ID
+		 , AUTH_KEY
+		 , AUTH_REQ_DATE
+		 , AUTH_UPD_DATE
+		 , AUTH_HEADER
+		 , AUTH_BODY
+		 , PUSH_NOTI_ID
+		 , REGISTER_DATE
+		 , REGISTER_ID
+		 , UPDATE_DATE
+		 , UPDATE_ID ) 
+		VALUES
+		 ( 'UID'||CHAR(NEXT VALUE FOR USER_ID_SEQUENCE)
+		 , #ADMIN_ID#
+		 , #LOGIN_ID#
+		 , #AUTH_KEY#
+		 , '20110915160427236'
+		 , '20110915160427236'
+		 , #AUTH_HEADER#
+		 , #AUTH_BODY#
+		 , #PUSH_NOTI_ID#
+		 , CURRENT TIMESTAMP
+		 , #REGISTER_ID#
+		 , CURRENT TIMESTAMP
+		 , #UPDATE_ID# )
+	</insert>
+	
+	<delete id="delete" parameterClass="java.util.Map">
+		DELETE FROM TB_CO_AUTH 
+		WHERE LOGIN_ID = #LOGIN_ID#
+	</delete>
+	
+</sqlMap>

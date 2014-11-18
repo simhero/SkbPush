@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Auth">
+
+	<typeAlias alias="AuthVO" type="com.skt.ssp.gw.vo.AuthVO"/>
+
+	<resultMap class="AuthVO" id="selectResultMap">
+		<result property="userId" column="USER_ID" javaType="string" nullValue="" />
+		<result property="adminId" column="ADMIN_ID" javaType="string" nullValue="" />
+		<result property="loginId" column="LOGIN_ID" javaType="string" nullValue="" />
+		<result property="authKey" column="AUTH_KEY" javaType="string" nullValue="" />
+		<result property="authReqDate" column="AUTH_REQ_DATE" javaType="string" nullValue="" />
+		<result property="authUpdDate" column="AUTH_UPD_DATE" javaType="string" nullValue="" />
+		<result property="authHeader" column="AUTH_HEADER" javaType="string" nullValue="" />
+		<result property="authBody" column="AUTH_BODY" javaType="string" nullValue="" />
+		<result property="pushNotiId" column="PUSH_NOTI_ID" javaType="string" nullValue="" />
+		<result property="registerDate" column="REGISTER_DATE" javaType="string" nullValue="" />
+		<result property="registerId" column="REGISTER_ID" javaType="string" nullValue="" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="string" nullValue="" />
+		<result property="updateId" column="UPDATE_ID" javaType="string" nullValue="" />
+	</resultMap>
+	
+	<select id="select" parameterClass="AuthVO" resultMap="selectResultMap">
+		SELECT USER_ID
+			 , ADMIN_ID
+			 , LOGIN_ID
+			 , AUTH_KEY
+			 , AUTH_REQ_DATE
+			 , AUTH_UPD_DATE
+			 , AUTH_HEADER
+			 , AUTH_BODY
+			 , PUSH_NOTI_ID
+			 , REGISTER_DATE
+			 , REGISTER_ID
+			 , UPDATE_DATE
+			 , UPDATE_ID
+		FROM TB_CO_AUTH
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="loginId">
+			LOGIN_ID = #loginId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="adminId">
+			ADMIN_ID = #adminId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="authKey">
+			AUTH_KEY = #authKey#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="authReqDate">
+			AUTH_REQ_DATE = #authReqDate#
+			</isNotEmpty>
+		</dynamic>
+		<!-- 
+		ORDER BY REGISTER_DATE DESC
+		FETCH FIRST 1 ROWS ONLY
+		 -->
+	</select>
+	
+	<parameterMap class="AuthVO" id="addAuthInfoMap">
+		<parameter property="adminId" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="loginId" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="authKey" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="authReqDate" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="authUpdDate" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="authHeader" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="authBody" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="pushNotiId" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="registerId" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+		<parameter property="updateId" jdbcType="VARCHAR" javaType="string" nullValue="NO_ENTRY"/>
+	</parameterMap>
+
+	<insert id="insert" parameterMap="addAuthInfoMap">
+		INSERT INTO TB_CO_AUTH
+		 ( USER_ID
+		 , ADMIN_ID
+		 , LOGIN_ID
+		 , AUTH_KEY
+		 , AUTH_REQ_DATE
+		 , AUTH_UPD_DATE
+		 , AUTH_HEADER
+		 , AUTH_BODY
+		 , PUSH_NOTI_ID
+		 , REGISTER_DATE
+		 , REGISTER_ID
+		 , UPDATE_DATE
+		 , UPDATE_ID ) 
+		VALUES
+		 ( 'UID'||CHAR(NEXT VALUE FOR USER_ID_SEQUENCE)
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , CURRENT TIMESTAMP
+		 , ?
+		 , CURRENT TIMESTAMP
+		 , ? )
+	</insert>
+	
+	<delete id="delete" parameterClass="AuthVO">
+		DELETE FROM TB_CO_AUTH 
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="loginId">
+			LOGIN_ID = #loginId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="adminId">
+			ADMIN_ID = #adminId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="authKey">
+			AUTH_KEY = #authKey#
+			</isNotEmpty>
+		</dynamic>
+	</delete>
+	
+</sqlMap>

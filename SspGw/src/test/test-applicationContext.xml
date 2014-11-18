@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="com.skt.ssp.gw">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+	<context:property-placeholder location="classpath:property/db.properties, classpath:property/ac.properties" />
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation" expression="execution(* com.skt.ssp.gw.service..*Impl.*(..))"/>
+	</aop:config>
+
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="is*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="select*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="del*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="addPersonalMessage" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties">
+			<bean
+				class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">
+				<property name="configurations">
+					<list>
+						<ref bean="configuration"/>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="configuration"
+		class="org.apache.commons.configuration.CompositeConfiguration">
+		<constructor-arg>
+			<list>
+				<bean class="com.skt.ssp.gw.config.Config">
+					<constructor-arg type="java.lang.String">
+						<value>xml/WowInfoConfig.xml</value>
+					</constructor-arg>
+				</bean>
+				<bean class="com.skt.ssp.gw.config.Config">
+					<constructor-arg type="java.lang.String">
+						<value>xml/CodeConfig.xml</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
+		<property name="url"><value>${jdbc.url}</value></property>
+		<property name="username"><value>${jdbc.username}</value></property>
+		<property name="password"><value>${jdbc.password}</value></property>
+	</bean>
+
+<!--
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${jndiName}" />
+		<property name="resourceRef" value="true" />
+
+	</bean>
+-->
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="${sqlMapConfig}"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="loggingAspect" class="com.skt.ssp.gw.aspect.LoggingAspect" />
+
+	<bean id="exceptionNotificationAspect" class="com.skt.ssp.gw.aspect.ExceptionNotificationAspect" >
+		<property name="mailSender">
+			<ref local="mailSender" />
+		</property>
+	</bean>
+
+	<bean id="mailSender" class="com.skt.ssp.gw.common.ExceptionMailSender">
+		<property name="sender">
+			<ref bean="sender" />
+		</property>
+		<property name="to">
+			<value>ukaka@in-sprit.com</value>
+		</property>
+		<property name="from">
+			<value>simhero@in-sprit.com</value>
+		</property>
+		<property name="messageSourceAccessor">
+			<ref local="messageSourceAccessor" />
+		</property>
+	</bean>
+
+	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		p:host="localhost" p:defaultEncoding="euc-kr" />
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/classes/property/Messages</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="5"/>
+	</bean>
+
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg>
+			<ref local="messageSource" />
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="cronTriggerJob"
+		class="org.springframework.scheduling.quartz.JobDetailBean"
+		p:jobClass="com.skt.ssp.gw.scheduler.InfoScheduler">
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="configuration" value-ref="configuration"/>
+			</map>
+		</property>
+	</bean>
+<!--
+	<bean id="simpleTriggerJob"
+		class="org.springframework.scheduling.quartz.JobDetailBean"
+		p:jobClass="com.skt.ssp.gw.scheduler.GwScheduler">
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="configuration" value-ref="configuration"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="cronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean"
+		p:jobDetail-ref="cronTriggerJob" p:cronExpression="0 1 * * * ? *"/>
+
+	<bean id="simpleTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+		p:jobDetail-ref="simpleTriggerJob" p:startDelay="1000"
+		p:repeatInterval="3000"/>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger"/>
+				<ref bean="simpleTrigger"/>
+			</list>
+		</property>
+	</bean>
+-->
+
+
+</beans>
