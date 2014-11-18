@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ImageConvert">
+
+	<typeAlias alias="IfIhConvInfoDbVO" type="com.skt.ssp.ih.vo.imageConvert.IfIhConvInfoDbVO" />
+	<typeAlias alias="IfIhConvReqInfoDbVO" type="com.skt.ssp.ih.vo.imageConvert.IfIhConvReqInfoDbVO" />
+
+	<insert id="addImgInfo" parameterClass="IfIhConvInfoDbVO">
+		INSERT INTO TB_IMAGE_CONVERSION_INFO 
+		( CONV_ID
+		, TRANSACTION_ID
+		, ADMIN_CODE
+		, USER_ID
+		, KEY_VAL
+		, OS_VER_CD
+		, CONV_REQ_SYS_CD
+		, CONV_ORIG_FILE_NM
+		, CONF_ING_FILE_NM
+		, CONV_END_FILE_NM
+		, CONV_REQ_FILE_TYPE_CD
+		, CONV_END_FILE_TYPE_CD
+		, CONV_END_FILE_SIZE
+		, IMAGE_SERVICE_URL
+		, CONV_REQ_DT
+		, CONV_END_DT
+		, CONV_RESULT_CD
+		, INSERT_ID
+		, UPDATE_ID
+		, INSERT_DT
+		, UPDATE_DT
+		)
+		VALUES 
+		( #convId#
+		, #transactionId#
+		, #adminCode#
+		, #userId#
+		, #keyVal#
+		, #osVerCd#
+		, #convReqSysCd#
+		, #convOrigFileNm#
+		, #confIngFileNm#
+		, #convEndFileNm#
+		, #convReqFileTypeCd#
+		, #convEndFileTypeCd#
+		, #convEndFileSize#
+		, #imageServiceUrl#
+		, #convReqDt#
+		, #convEndDt#
+		, #convResultCd#
+		, #insertId#
+		, #updateId#
+		, #insertDt#
+		, #updateDt#
+		)
+	</insert>
+	
+	<update id="updateImgInfo" parameterClass="IfIhConvInfoDbVO">
+		UPDATE TB_IMAGE_CONVERSION_INFO
+		<dynamic prepend="SET">
+			<isNotEmpty property="convResultCd" prepend=",">
+				CONV_RESULT_CD = #convResultCd#
+			</isNotEmpty>
+			<isNotEmpty property="convEndDt" prepend=",">
+				CONV_END_DT = #convEndDt#
+			</isNotEmpty>
+		</dynamic>
+		WHERE CONV_ID = #convId#
+	</update>
+	
+	<insert id="addImgReqInfo" parameterClass="IfIhConvReqInfoDbVO">
+		INSERT INTO TB_IMAGE_CONVERSION_REQ_INFO 
+		( REQ_CONV_ID
+		, CONV_FILE_SEQ
+		, TRANSACTION_ID
+		, ADMIN_CODE
+		, USER_ID
+		, KEY_VAL
+		, OS_VER_CD
+		, CONV_REQ_SYS_CD
+		, CONV_ORIG_FILE_NM
+		, IMAGE_RESOLUTION
+		, CONV_REQ_DT
+		, CONV_END_DT
+		, CONV_RESULT_CD
+		, INSERT_ID
+		, UPDATE_ID
+		, INSERT_DT
+		, UPDATE_DT
+		)
+		VALUES 
+		( #reqConvId#
+		, #convFileSeq#
+		, #transactionId#
+		, #adminCode#
+		, #userId#
+		, #keyVal#
+		, #osVerCd#
+		, #convReqSysCd#
+		, #convOrigFileNm#
+		, #imageResolution#
+		, #convReqDt#
+		, #convEndDt#
+		, #convResultCd#
+		, #insertId#
+		, #updateId#
+		, #insertDt#
+		, #updateDt#
+		)
+	</insert>
+
+	<update id="updateImgReqInfo" parameterClass="IfIhConvReqInfoDbVO">
+		UPDATE TB_IMAGE_CONVERSION_REQ_INFO
+		<dynamic prepend="SET">
+			<isNotEmpty property="convResultCd" prepend=",">
+				CONV_RESULT_CD = #convResultCd#
+			</isNotEmpty>
+			<isNotEmpty property="convEndDt" prepend=",">
+				CONV_END_DT = #convEndDt#
+			</isNotEmpty>
+			<isNotEmpty property="updateId" prepend=",">
+				UPDATE_ID = #updateId#
+			</isNotEmpty>
+			<isNotEmpty property="updateDt" prepend=",">
+				UPDATE_DT = #updateDt#
+			</isNotEmpty>
+		</dynamic>
+		WHERE REQ_CONV_ID = #reqConvId#
+		AND CONV_FILE_SEQ = #convFileSeq#
+	</update>
+	
+	<select id="selectReqConvId" parameterClass="java.util.Map" resultClass="java.lang.String">
+		SELECT C.REQ_CONV_ID 
+		FROM (
+		    SELECT <![CDATA[@rownum:=@rownum+1]]> AS NUM, A.REQ_CONV_ID 
+		    FROM TB_IMAGE_CONVERSION_REQ_INFO A, <![CDATA[(SELECT @rownum:=0)]]> B
+		    WHERE A.CONV_RESULT_CD = #convCode#
+		    GROUP BY A.REQ_CONV_ID
+		    ORDER BY A.CONV_REQ_DT ASC
+		      ) C 
+		WHERE C.NUM <![CDATA[<=]]> $rowCnt$
+	</select>
+	
+	<select id="selectImgConvReqInfo" parameterClass="java.util.Map" resultClass="IfIhConvReqInfoDbVO">
+		SELECT C.REQ_CONV_ID		AS reqConvId
+		     , C.CONV_FILE_SEQ		AS convFileSeq
+		     , C.TRANSACTION_ID		AS transactionId
+		     , C.ADMIN_CODE			AS adminCode
+		     , C.USER_ID			AS userId
+		     , C.OS_VER_CD			AS osVerCd
+		     , C.CONV_REQ_SYS_CD	AS convReqSysCd
+		     , C.CONV_ORIG_FILE_NM	AS convOrigFileNm
+		     , C.KEY_VAL			AS keyVal
+		     , C.CONV_REQ_DT		AS convReqDt
+		     , C.CONV_END_DT		AS convEndDt
+		     , C.CONV_RESULT_CD		AS convResultCd
+		     , C.INSERT_ID			AS insertId
+		     , C.UPDATE_ID			AS updateId
+		     , C.INSERT_DT			AS insertDt
+		     , C.UPDATE_DT			AS updateDt
+		FROM (
+			SELECT <![CDATA[@rownum:=@rownum+1]]> AS NUM
+			     , A.REQ_CONV_ID, A.CONV_FILE_SEQ, A.TRANSACTION_ID, A.ADMIN_CODE
+			     , A.USER_ID, A.OS_VER_CD, A.CONV_REQ_SYS_CD, A.CONV_ORIG_FILE_NM
+			     , A.KEY_VAL, A.CONV_REQ_DT, A.CONV_END_DT, A.CONV_RESULT_CD
+			     , A.INSERT_ID, A.UPDATE_ID, A.INSERT_DT, A.UPDATE_DT 
+			FROM TB_IMAGE_CONVERSION_REQ_INFO A, <![CDATA[(SELECT @rownum:=0)]]> B
+			WHERE A.REQ_CONV_ID = #reqConvId#
+			AND A.CONV_RESULT_CD = #convCode#
+			ORDER BY CONV_FILE_SEQ ASC
+		      ) C 
+		WHERE C.NUM <![CDATA[<=]]> $rowCnt$
+	</select>
+
+</sqlMap>

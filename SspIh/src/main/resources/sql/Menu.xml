@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Menu">
+
+	<typeAlias alias="MenuVO" type="com.skt.ssp.ih.vo.MenuVO" />
+
+	<parameterMap id="addMenuParameterMap" class="MenuVO">
+		<parameter property="menuId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="menuName" jdbcType="VARCHAR" javaType="string" />
+        <parameter property="menuPrice" jdbcType="NUMERIC" javaType="int" />
+		<parameter property="pizzaId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="drinkId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="registerDate" jdbcType="DateTime:1/1/0001 12:00:00 AM" javaType="date" />
+
+	</parameterMap>
+
+	<parameterMap id="updateMenuParameterMap" class="MenuVO">
+		<parameter property="menuName" jdbcType="VARCHAR" javaType="string" />
+        <parameter property="menuPrice" jdbcType="NUMERIC" javaType="int" />
+		<parameter property="pizzaId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="drinkId" jdbcType="VARCHAR" javaType="string" />
+		<parameter property="menuId" jdbcType="VARCHAR" javaType="string" />
+	</parameterMap>
+
+	<resultMap id="getMenuResultMap" class="MenuVO">
+		<result property="menuId" jdbcType="VARCHAR" javaType="string" />
+		<result property="menuName" jdbcType="VARCHAR" javaType="string" />
+        <result property="menuPrice" jdbcType="NUMERIC" javaType="int" />
+		<result property="pizzaId" jdbcType="VARCHAR" javaType="string" />
+		<result property="drinkId" jdbcType="VARCHAR" javaType="string" />
+		<result property="registerDate" column="REGISTER_DATE" jdbcType="DateTime:1/1/0001 12:00:00 AM" javaType="date" />
+	</resultMap>
+
+	<resultMap id="getMenuListResultMap" class="MenuVO">
+		<result property="menuId" jdbcType="VARCHAR" javaType="string" />
+		<result property="menuName" jdbcType="VARCHAR" javaType="string" />
+        <result property="menuPrice" jdbcType="NUMERIC" javaType="int" />
+		<result property="pizzaId" jdbcType="VARCHAR" javaType="string" />
+		<result property="drinkId" jdbcType="VARCHAR" javaType="string" />
+		<result property="registerDate" column="REGISTER_DATE" jdbcType="DateTime:1/1/0001 12:00:00 AM" javaType="date" />
+		<!-- result property="listNum" column="LIST_NUM" jdbcType="NUMERIC" javaType="int" /-->
+	</resultMap>
+
+
+	<select id="getMenu" parameterClass="string" resultMap="getMenuResultMap">
+		SELECT MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE
+		FROM TB_MENU
+        WHERE MENU_ID = #menuId#
+	</select>
+
+	<insert id="addMenu" parameterMap="addMenuParameterMap">
+        <selectKey resultClass="string" keyProperty="menuId">
+            SELECT 'MENU' || LPAD(SEQ_TB_MENU_ID.NEXTVAL, 7, '0') AS menuId FROM DUAL
+        </selectKey>
+		INSERT INTO TB_MENU (MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE)
+		VALUES (?, ?, ?, ?, ?, sysdate)
+	</insert>
+
+	<update id="updateMenu" parameterMap="updateMenuParameterMap">
+		UPDATE TB_MENU
+		SET MENU_NAME=?, MENU_PRICE=?, PIZZA_ID=?, DRINK_ID=?
+		WHERE MENU_ID = ?
+	</update>
+
+	<update id="deleteMenu" parameterClass="string">
+		UPDATE TB_MENU
+		SET	MENU_ID = ?
+		WHERE MENU_ID = ?
+	</update>
+
+	<select id="getMenuListTotalCount" parameterClass="hashmap" resultClass="string" >
+		SELECT  NVL((COUNT(*)),0) AS TOTAL
+		FROM TB_MENU
+		<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="grade">
+			GRADE = #grade#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="status">
+			STATUS = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="bpInfoId">
+			BP_INFO_ID = #bpInfoId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="id">
+			lower(ID) LIKE lower('%$id$%')
+		</isNotEmpty>
+		</dynamic>
+	</select>
+	
+<!--
+	<select id="getMenuList" parameterClass="hashmap" resultMap="getMenuListResultMap" >
+		SELECT MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE, LIST_NUM
+		FROM
+		(
+			SELECT MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE, ROWNUM AS LIST_NUM, CEIL(ROWNUM / #pageSize# ) PAGE
+			FROM
+			(
+				SELECT MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE
+				FROM TB_MENU
+				<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="grade">
+					GRADE = #grade#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="status">
+					STATUS = #status#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="bpInfoId">
+					BP_INFO_ID = #bpInfoId#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="id">
+					lower(ID) LIKE lower('%$id$%')
+				</isNotEmpty>
+				</dynamic>
+				ORDER BY REGISTER_DATE DESC
+			)
+		)
+		WHERE PAGE = #currentPage#
+	</select>
+-->
+
+	<select id="getMenuList" parameterClass="hashmap" resultMap="getMenuListResultMap" >
+		SELECT MENU_ID, MENU_NAME, MENU_PRICE, PIZZA_ID, DRINK_ID, REGISTER_DATE FROM TB_MENU 
+	</select>
+
+</sqlMap>

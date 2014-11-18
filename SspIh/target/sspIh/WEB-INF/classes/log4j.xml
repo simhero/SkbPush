@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihApache" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihApache.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihSpring" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihSpring.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihQuartz" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihQuartz.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ih" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ih.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihCommon" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihCommon.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihDwr" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihDwr.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihCore" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihCore.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihService" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihService.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihDao" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihDao.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihParse" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihParse.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihAdapter" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihAdapter.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihSchedule" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihSchedule.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihUtil" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihUtil.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihServlet" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihServlet.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihController" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihController.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihSql" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihSql.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihIBatis" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihIBatis.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ihSoap" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/ihSoap.log" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+		</layout>
+	</appender>
+
+    <appender name="ihDaemon" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/ihDaemon.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="ihAspect" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/ihAspect.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="ihAspectj" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/ihAspectj.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="ihSimul" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/ssp/ihSimul.log" />
+        <param name="DatePattern" value=".yyyyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%-3p] %m%n" />
+        </layout>
+    </appender>
+
+	<appender name="IH_TRA" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/trace/ih.tra" />
+		<param name="DatePattern" value=".yyyyMMddHH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%F][%t][%-5p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="TEST_SIN" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/log/ssp/single/test.sin" />
+		<param name="DatePattern" value=".yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}|%m]%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.apache">
+		<level value="DEBUG" />
+		<appender-ref ref="ihApache" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihSpring" />
+	</logger>
+
+	<logger name="org.quartz">
+		<level value="DEBUG" />
+		<appender-ref ref="ihQuartz" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.aspect">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihAspect" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.common">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihCommon" />
+	</logger>
+
+	<logger name="org.directwebremoting.util.Logger">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihDwr" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.core">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihCore" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.service.impl">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihService" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.dao.impl">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihDao" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.scheduler">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihSchedule" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.adapter">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihAdapter" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.parse">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihParse" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.util">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihUtil" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.web.servlet">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihServlet" />
+	</logger>
+
+	<logger name="com.skt.ssp.ih.web.controller">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihController" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement">
+		<level value="DEBUG" />
+		<appender-ref ref="ihSql" />
+	</logger>
+
+	<logger name="java.sql.Connection">
+		<level value="DEBUG" />
+		<appender-ref ref="ihSql" />
+	</logger>
+
+	<logger name="java.sql.ResultSet">
+		<level value="DEBUG" />
+		<appender-ref ref="ihSql" />
+	</logger>
+
+	<logger name="com.ibatis">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihIBatis" />
+	</logger>
+
+	<logger name="com.sun.xml.messaging.saaj.soap">
+		<level value="DEBUG"/>
+		<appender-ref ref="ihSoap" />
+	</logger>
+
+    <logger name="com.skt.ssp.ih.daemon">
+        <level value="DEBUG"/>
+        <appender-ref ref="ihDaemon" />
+    </logger>
+
+    <logger name="org.aspectj">
+        <level value="DEBUG"/>
+        <appender-ref ref="ihAspectj" />
+    </logger>
+
+    <logger name="com.skt.ssp.ih.simulator">
+        <level value="DEBUG"/>
+        <appender-ref ref="ihSimul" />
+    </logger>
+
+	<category name="IH_TRA">
+		<priority value="DEBUG"/>
+		<appender-ref ref="IH_TRA" />
+	</category>
+
+	<category name="TEST_SIN">
+		<priority value="DEBUG"/>
+		<appender-ref ref="TEST_SIN" />
+	</category>
+
+</log4j:configuration>
